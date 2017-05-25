@@ -1,7 +1,7 @@
 import datetime
 import os
 import sched
-import thread
+import threading
 import time
 
 import MySQLdb
@@ -40,7 +40,8 @@ class Main(object):
         db.close()
         if self.start_flag is False:
             self.start_flag = True
-            thread.start_new_thread(self.scan_crontab)
+            thread = threading.Thread(target=self.scan_crontab, name='scan_crontab_thread')
+            thread.start()
 
         self.schedule.enter(inc, 0, self.start, (inc,))
 

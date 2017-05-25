@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
-import thread
+import threading
 
 import MySQLdb
 import requests
@@ -11,7 +11,8 @@ from goods_price import GoodsPrice
 
 
 def grab_goods(scan_config, db_config):
-    thread.start_new_thread(grab_goods_and_save(scan_config, db_config))
+    thread = threading.Thread(target=grab_goods_and_save(scan_config, db_config))
+    thread.start()
 
 
 def grab_goods_and_save(scan_config, db_config):
