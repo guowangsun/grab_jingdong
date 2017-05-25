@@ -15,10 +15,11 @@ class Main(object):
     schedule = sched.scheduler(time.time, time.sleep)
     scanConfigs = []
     start_flag = False
-    dbConfig = Config
+    dbConfig = None
 
     def __init__(self, inc):
-        self.schedule.enter(0, 0, self.start, inc)
+        self.dbConfig = Config
+        self.schedule.enter(0, 0, self.start, (inc,))
         self.schedule.run()
 
     def start(self, inc):
@@ -39,7 +40,7 @@ class Main(object):
             self.start_flag = True
             thread.start_new_thread(self.scan_crontab)
 
-        self.schedule.enter(inc, 0, self.start, inc)
+        self.schedule.enter(inc, 0, self.start, (inc,))
 
     def scan_crontab(self):
         now = datetime.datetime.utcnow()
