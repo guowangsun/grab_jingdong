@@ -40,6 +40,6 @@ def grab_goods_and_save(scan_config, db_config):
     cursor.execute(select_sql)
     result = cursor.fetchall()[0]
     db.close()
-    goods_message = GoodsMessage(result[1], result[2].decode('utf-8'), result[3], result[4].decode('utf-8'), result[5])
+    goods_message = GoodsMessage(result[1], result[2], result[3], result[4], result[5])
     print ('good message %s' % goods_message)
     send_mail.send_mail(goods_message, goods_price.current_price)
