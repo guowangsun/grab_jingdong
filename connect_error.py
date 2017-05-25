@@ -1,0 +1,2 @@
+class ConnectError(ValueError):
+    pass
