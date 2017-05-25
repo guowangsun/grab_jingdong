@@ -16,3 +16,5 @@ class GoodsMessage(object):
     def __str__(self):
         return '[id=%s, j_id=%s, name=%s, url=%s, comment=%s, create_time=%s]' % (self.id, self.j_id, self.name,
                                                                                   self.url, self.comment, self.create_time)
+
+    __repr__ = __str__

@@ -15,3 +15,5 @@ class Config(object):
 
     def __str__(self):
         return '[host=%s, user=%s, password=%s, db=%s]' % (self.host, self.user, self.password, self.db)
+
+    __repr__ = __str__

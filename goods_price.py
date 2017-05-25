@@ -14,3 +14,5 @@ class GoodsPrice(object):
     def __str__(self):
         return '[id=%s, goods_id=%s, current_price=%s, price=%s, create_time=%s]' % (self.id, self.goods_id,
                                                                                      self.current_price, self.price, self.create_time)
+
+    __repr__ = __str__
