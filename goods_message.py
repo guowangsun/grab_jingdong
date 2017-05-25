@@ -12,3 +12,7 @@ class GoodsMessage(object):
         self.url = url
         self.comment = comment
         self.create_time = create_time
+
+    def __str__(self):
+        return '[id=%s, j_id=%s, name=%s, url=%s, comment=%s, create_time=%s]' % (self.id, self.j_id, self.name,
+                                                                                  self.url, self.comment, self.create_time)

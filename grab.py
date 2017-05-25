@@ -24,7 +24,8 @@ def grab_goods_and_save(scan_config, db_config):
     insert_sql = 'INSERT INTO goods_price (goods_id, current_price, price, create_time) VALUES (%s, %s, %s, %s)' % (goods_price.goods_id,
                                                                                                                     goods_price.current_price,
                                                                                                                     goods_price.price,
-                                                                                                                    goods_price.create_time)
+                                                                                                                    goods_price.create_time.strptime(
+                                                                                                                        '%Y-%m-%d %H:%M:%S'))
     print ('start insert price %s' % goods_price)
     try:
         cursor.execute(insert_sql)

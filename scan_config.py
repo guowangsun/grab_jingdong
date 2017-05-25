@@ -14,3 +14,6 @@ class ScanConfig(object):
         self.j_id = j_id
         self.crontab = crontab
         self.create_time = create_time
+
+    def __str__(self):
+        return ['id=%s, j_id=%s, crontab=%s, create_time=%s'] % (self.id, self.j_id, self.crontab, self.create_time)

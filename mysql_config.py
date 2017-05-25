@@ -12,3 +12,6 @@ class Config(object):
         self.user = user
         self.password = password
         self.db = db
+
+    def __str__(self):
+        return '[host=%s, user=%s, password=%s, db=%s]' % (self.host, self.user, self.password, self.db)
