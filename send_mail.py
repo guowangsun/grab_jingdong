@@ -24,6 +24,7 @@ def send_mail(goods_message, price):
     subject = 'Python SMTP 邮件测试'
     message['Subject'] = Header(subject, 'utf-8')
 
+    print ('start send mail')
     try:
         smtpObj = smtplib.SMTP_SSL()
         smtpObj.connect(mail_host, 465)  # 25 为 SMTP 端口号

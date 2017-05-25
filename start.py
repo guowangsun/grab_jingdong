@@ -28,6 +28,7 @@ class Main(object):
         db = MySQLdb.connect(self.dbConfig.host, self.dbConfig.user, self.dbConfig.password, self.dbConfig.db)
         cursor = db.cursor()
         sql = 'SELECT id, j_id, crontab, create_time FROM scan_config'
+        print ('reload scan_config start')
         try:
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -38,21 +39,25 @@ class Main(object):
         except Exception as e:
             print ('Error : read mysql error', e)
         db.close()
+        print ('reload scan_config end, scan config : %s' % self.scanConfigs)
         if self.start_flag is False:
             self.start_flag = True
+            print ('start scan config')
             thread = threading.Thread(target=self.scan_crontab, name='scan_crontab_thread')
             thread.start()
 
         self.schedule.enter(inc, 0, self.start, (inc,))
 
     def scan_crontab(self):
-        now = datetime.datetime.utcnow()
-        for scanConfig in self.scanConfigs:
-            ct = CronTab(scanConfig.crontab)
-            delay = ct.next(now, default_utc=True)
-            if delay < 1:
-                grab.grab_goods(scanConfig, self.dbConfig)
-        time.sleep(1)
+        while True:
+            now = datetime.datetime.utcnow()
+            for scanConfig in self.scanConfigs:
+                ct = CronTab(scanConfig.crontab)
+                delay = ct.next(now, default_utc=True)
+                print ('now %s, scan_config %s, delay %s' % (now, scanConfig, delay))
+                if delay < 1:
+                    grab.grab_goods(scanConfig, self.dbConfig)
+            time.sleep(1)
 
 
 if __name__ == '__main__':
