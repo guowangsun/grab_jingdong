@@ -1,3 +1,5 @@
+# -*-coding:utf-8 -*-
+
 import datetime
 import os
 import sched
@@ -25,7 +27,7 @@ class Main(object):
         self.schedule.run()
 
     def start(self, inc):
-        db = MySQLdb.connect(self.dbConfig.host, self.dbConfig.user, self.dbConfig.password, self.dbConfig.db)
+        db = MySQLdb.connect(self.dbConfig.host, self.dbConfig.user, self.dbConfig.password, self.dbConfig.db, charset='utf8')
         cursor = db.cursor()
         sql = 'SELECT id, j_id, crontab, create_time FROM scan_config'
         print ('reload scan_config start')
@@ -44,6 +46,7 @@ class Main(object):
             self.start_flag = True
             print ('start scan config')
             thread = threading.Thread(target=self.scan_crontab, name='scan_crontab_thread')
+            thread.setDaemon(True)
             thread.start()
 
         self.schedule.enter(inc, 0, self.start, (inc,))

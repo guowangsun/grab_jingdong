@@ -1,3 +1,5 @@
+# -*-coding:utf-8 -*-
+
 class GoodsMessage(object):
     id = None
     j_id = None
