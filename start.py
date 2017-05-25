@@ -1,4 +1,5 @@
 import datetime
+import os
 import sched
 import thread
 import time
@@ -18,7 +19,8 @@ class Main(object):
     dbConfig = None
 
     def __init__(self, inc):
-        self.dbConfig = Config
+        self.dbConfig = Config(os.environ.get('JING_DONG_MYSQL_HOST'), os.environ.get('JING_DONG_MYSQL_USER'),
+                               os.environ.get('JING_DONG_MYSQL_PASSWORD'), os.environ.get('JING_DONG_MYSQL_DB'))
         self.schedule.enter(0, 0, self.start, (inc,))
         self.schedule.run()
 
