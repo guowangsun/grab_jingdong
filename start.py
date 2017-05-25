@@ -53,7 +53,7 @@ class Main(object):
 
     def scan_crontab(self):
         while True:
-            now = datetime.datetime.utcnow()
+            now = datetime.datetime.now()
             for scanConfig in self.scanConfigs:
                 ct = CronTab(scanConfig.crontab)
                 delay = ct.next(now, default_utc=True)
